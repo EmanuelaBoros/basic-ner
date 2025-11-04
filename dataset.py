@@ -1,23 +1,6 @@
 import torch
 from torch.utils.data import Dataset
-from collections import defaultdict
-import pandas as pd
 
-COLUMNS = [
-    "TOKEN",
-    "NE-COARSE-LIT",
-    "NE-COARSE-METO",
-    "NE-FINE-LIT",
-    "NE-FINE-METO",
-    "NE-FINE-COMP",
-    "NE-NESTED",
-    "NEL-LIT",
-    "NEL-METO",
-    "RENDER",
-    "SEG",
-    "OCR-INFO",
-    "MISC",
-]
 COLUMNS = [
     "TOKEN",
     "NE-COARSE-LIT",
@@ -128,34 +111,6 @@ def _read_conll(path, encoding="utf-8", sep=None, indexes=None, dropna=True):
                 raise e
 
         return data
-
-
-def export_entity_statistics(dataset, split_name, output_path, label_map):
-    # Create structure: {(split, year, label): count}
-    stats = defaultdict(int)
-
-    for i in range(len(dataset)):
-        year = int(dataset.dates[i].split("-")[0])
-        token_labels = dataset.token_targets_dict["NE-COARSE-LIT"][i]
-        # inverse label map
-        label_map = dataset.get_inverse_label_map()
-        token_labels = [label_map["NE-COARSE-LIT"][label] for label in token_labels]
-
-        for label in token_labels:
-
-            entity_type = label.split("-")[-1].upper() if label != "O" else "O"
-            if 'B-' in label:
-                stats[(split_name, year, entity_type)] += 1
-
-    # Convert to DataFrame
-    rows = [
-        {"split": split, "year": year, "entity_type": entity, "count": count}
-        for (split, year, entity), count in stats.items()
-    ]
-    df_stats = pd.DataFrame(rows)
-    df_stats = df_stats.sort_values(by=["split", "year", "entity_type"])
-    df_stats.to_csv(output_path, sep="\t", index=False)
-    return df_stats
 
 
 class NewsDataset(Dataset):
