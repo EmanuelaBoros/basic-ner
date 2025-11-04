@@ -67,7 +67,3 @@ experiments/
 - The code can be extended to support all HIPE annotation layers for multi-task learning.
 
 ---
-
-**Author:** [Your Name]  
-**Project:** Historical NER with HIPE-2020  
-**Model:** `dbmdz/bert-base-historic-multilingual-cased`
