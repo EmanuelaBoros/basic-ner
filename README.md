@@ -1,6 +1,6 @@
 # Named Entity Recognition (NER) with HIPE-2020 (French)
 
-This notebook demonstrates how to train and evaluate a **Named Entity Recognition (NER)** model on the **HIPE-2020** dataset using a multilingual BERT model adapted for historical texts.
+This notebook demonstrates how to train and evaluate a **Named Entity Recognition (NER)** model on the [**HIPE-2020** dataset](https://github.com/hipe-eval/HIPE-2022-data) using a multilingual BERT model adapted for historical texts.
 
 ## Overview
 
